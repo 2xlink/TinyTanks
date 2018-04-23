@@ -12,11 +12,14 @@ config_version=3
 
 config/name="Kinematic Collision"
 run/main_scene="res://scenes/colworld.tscn"
-config/icon="res://icon.png"
 
 [gdnative]
 
 singletons=[  ]
+
+[global]
+
+icon=false
 
 [input]
 

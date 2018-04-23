@@ -1,24 +1,25 @@
 extends Node2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 var s1
-var scene = load("res://scenes/player.tscn")
-var node = scene.instance()
+var player_scene = load("res://scenes/player.tscn")
+var player = player_scene.instance()
+
+var bullet_scene = preload("res://scenes/bullet.tscn")
 
 func _ready():
     s1 = Sprite.new()
     add_child(s1)
-    add_child(node)
-    add_child(node)
-    add_child(node)
     
-func _on_shoot():
-    var bullet = preload("res://scenes/bullet.tscn").instance()
-    add_child(bullet)
 
-#func _process(delta):
-#    # Called every frame. Delta is time since last frame.
-#    # Update game logic here.
-#    pass
+func fire_bullet(origin, pos, aim):
+    var bullet = bullet_scene.instance()
+    add_child(bullet)
+    bullet.position = pos + aim/2
+    bullet.rotation = aim.angle()
+    bullet.direction = aim.normalized()
+
+
+func _on_player_fire_bullet(origin, pos, aim):
+    print("World received fire signal from player "+str(origin)+" at position "+str(pos)+" with aim "+str(aim))
+    fire_bullet(origin, pos, aim)
+    
