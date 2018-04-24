@@ -28,6 +28,6 @@ func _on_fire_bullet(origin):
     print("World received fire signal from player "+str(origin)+" at position "+str(pos)+" with aim "+str(aim))
     var bullet = bullet_scene.instance()
     add_child(bullet)
-    bullet.position = pos + aim/5
+    bullet.position = pos + aim.normalized() * 20
     bullet.rotation = aim.angle()
     bullet.direction = aim.normalized()

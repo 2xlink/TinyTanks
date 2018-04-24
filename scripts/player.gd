@@ -9,10 +9,11 @@ onready var cd_bullet_shoot = $cd_bullet_shoot
 
 # Member variables
 const MOTION_SPEED = 160 # Pixels/second
-const AIM_DISTANCE = 100 # Pixels
+const AIM_DISTANCE = 200 # Pixels
 
 export (int) var max_ammo = 5
 var player_name
+var using_controller
 
 var aim = Vector2()
 onready var ammo = max_ammo
@@ -23,6 +24,10 @@ func _ready():
     
 
 func _physics_process(delta):
+    _controller_controls()
+    
+
+func _keyboard_controls():
     var motion = Vector2()
     aim = Vector2()
     
@@ -34,7 +39,8 @@ func _physics_process(delta):
         motion += Vector2(-1, 0)
     if Input.is_action_pressed("move_right"):
         motion += Vector2(1, 0)
-        
+    motion = motion.normalized() * MOTION_SPEED
+    
     if Input.is_key_pressed(KEY_W):
         aim += Vector2(0, -1)
     if Input.is_key_pressed(KEY_S):
@@ -43,8 +49,35 @@ func _physics_process(delta):
         aim += Vector2(-1, 0)
     if Input.is_key_pressed(KEY_D):
         aim += Vector2(1, 0)
+        
+    if(aim.length() != 0):
+        aim = aim.normalized() * AIM_DISTANCE
+        tracer.offset = aim
+        tracer.visible = true
+    else:
+        tracer.visible = false
     
-    motion = motion.normalized() * MOTION_SPEED
+    move_and_slide(motion)
+    
+    
+func _controller_controls():
+    var motion = Vector2()
+    aim = Vector2()       
+
+    motion = Vector2(Input.get_joy_axis(0, JOY_AXIS_0), Input.get_joy_axis(0, JOY_AXIS_1))
+#    print(motion.length())
+    
+    # Deadzone
+    if motion.length() < 0.25:
+        motion = Vector2()
+        
+    motion = motion * MOTION_SPEED
+    
+    aim = Vector2(Input.get_joy_axis(0, JOY_AXIS_2), Input.get_joy_axis(0, JOY_AXIS_3))
+    
+    # Deadzone
+    if aim.length() < 0.25:
+        aim = Vector2()
     
     if(aim.length() != 0):
         aim = aim.normalized() * AIM_DISTANCE

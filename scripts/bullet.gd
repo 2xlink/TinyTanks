@@ -8,7 +8,7 @@ const BULLET_SPEED = 200 # Pixels / second
 
 func _ready():
     print("Bullet ready with position "+str(self.position))
-    $Area2D.connect("body_entered", self, "collided")
+    $Area2D.connect("body_entered", self, "_collided")
 #    connect("body_shape_entered", self, "collided")
 #    set_physics_process(true) # Implicitly set by overriding _physics_process(delta)
     
@@ -25,7 +25,7 @@ func _process(delta):
     pass
     
     
-func collided(body):
+func _collided(body):
     if hit_something == false:
         if body.has_method("bullet_hit"):
             body.bullet_hit(self.global_transform.origin)
