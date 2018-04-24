@@ -1,6 +1,7 @@
 extends KinematicBody2D
 signal hit
-signal fire_bullet(origin, pos)
+signal fire_bullet
+signal update_ammo
 
 onready var tracer = $tracer
 onready var cd_bullet_refresh = $cd_bullet_refresh
@@ -10,11 +11,15 @@ onready var cd_bullet_shoot = $cd_bullet_shoot
 const MOTION_SPEED = 160 # Pixels/second
 const AIM_DISTANCE = 100 # Pixels
 
+export (int) var max_ammo = 5
+var player_name
+
 var aim = Vector2()
-var ammo = 5
+onready var ammo = max_ammo
+
 
 func _ready():
-    pass
+    _update_ammo()
     
 
 func _physics_process(delta):
@@ -57,15 +62,21 @@ func _process(delta):
         cd_bullet_refresh.start()
         ammo -= 1
         cd_bullet_shoot.start()
-        emit_signal("fire_bullet", 0, self.position, aim)
+        emit_signal("fire_bullet", self)
+        _update_ammo()
 
 
 func _on_cd_bullet_refresh_timeout():
-    if ammo < 5:
+    if ammo < max_ammo:
         ammo += 1
     else:
         cd_bullet_refresh.stop()
+    _update_ammo()
         
         
 func _can_shoot():
     return cd_bullet_shoot.time_left == 0 && ammo > 0
+    
+    
+func _update_ammo():
+    $BulletAmmoLabel.text = str(ammo)+" / "+str(max_ammo) 

@@ -5,9 +5,6 @@ var direction = Vector2()
 
 const BULLET_SPEED = 200 # Pixels / second
 
-func _init():
-    print("Bullet constructor called!")
-
 
 func _ready():
     print("Bullet ready with position "+str(self.position))
@@ -29,7 +26,6 @@ func _process(delta):
     
     
 func collided(body):
-    print("Collided")
     if hit_something == false:
         if body.has_method("bullet_hit"):
             body.bullet_hit(self.global_transform.origin)

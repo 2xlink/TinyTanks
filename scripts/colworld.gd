@@ -19,18 +19,15 @@ func _ready():
     # Add enemies
     var enemy1 = enemy_scene.instance()
     add_child(enemy1)
-    enemy1.position = Vector2 (100, 300)
+    enemy1.position = Vector2(100, 300)
     
 
-func fire_bullet(origin, pos, aim):
+func _on_fire_bullet(origin):
+    var aim = origin.aim
+    var pos = origin.position
+    print("World received fire signal from player "+str(origin)+" at position "+str(pos)+" with aim "+str(aim))
     var bullet = bullet_scene.instance()
     add_child(bullet)
-    bullet.position = pos + aim/2
+    bullet.position = pos + aim/5
     bullet.rotation = aim.angle()
     bullet.direction = aim.normalized()
-
-
-func _on_fire_bullet(origin, pos, aim):
-    print("World received fire signal from player "+str(origin)+" at position "+str(pos)+" with aim "+str(aim))
-    fire_bullet(origin, pos, aim)
-    
