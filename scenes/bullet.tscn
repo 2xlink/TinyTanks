@@ -9,7 +9,7 @@ custom_solver_bias = 0.0
 radius = 7.59149
 height = 5.08709
 
-[node name="Bullet" type="Node2D"]
+[node name="Bullet" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]

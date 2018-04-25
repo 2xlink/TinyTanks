@@ -1,7 +1,6 @@
 extends KinematicBody2D
 signal hit
 signal fire_bullet
-signal update_ammo
 
 onready var tracer = $tracer
 onready var cd_bullet_refresh = $cd_bullet_refresh
