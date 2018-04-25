@@ -24,7 +24,8 @@ func _ready():
     
 
 func _physics_process(delta):
-    _controller_controls()
+#    _controller_controls()
+    _keyboard_controls()
     
 
 func _keyboard_controls():
@@ -41,6 +42,7 @@ func _keyboard_controls():
         motion += Vector2(1, 0)
     motion = motion.normalized() * MOTION_SPEED
     
+    
     if Input.is_key_pressed(KEY_W):
         aim += Vector2(0, -1)
     if Input.is_key_pressed(KEY_S):
@@ -49,6 +51,8 @@ func _keyboard_controls():
         aim += Vector2(-1, 0)
     if Input.is_key_pressed(KEY_D):
         aim += Vector2(1, 0)
+        
+    aim = Vector2(get_local_mouse_position())
         
     if(aim.length() != 0):
         aim = aim.normalized() * AIM_DISTANCE
