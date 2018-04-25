@@ -25,13 +25,7 @@ func _ready():
 
 func _physics_process(delta):
 #    _controller_controls()
-    _keyboard_controls()
-    
-
-func _keyboard_controls():
     var motion = Vector2()
-    aim = Vector2()
-    
     if Input.is_action_pressed("move_up"):
         motion += Vector2(0, -1)
     if Input.is_action_pressed("move_bottom"):
@@ -41,7 +35,12 @@ func _keyboard_controls():
     if Input.is_action_pressed("move_right"):
         motion += Vector2(1, 0)
     motion = motion.normalized() * MOTION_SPEED
+    move_and_slide(motion)
+    _keyboard_controls()
     
+
+func _keyboard_controls():
+    aim = Vector2()
     
     if Input.is_key_pressed(KEY_W):
         aim += Vector2(0, -1)
@@ -61,22 +60,8 @@ func _keyboard_controls():
     else:
         tracer.visible = false
     
-    move_and_slide(motion)
     
-    
-func _controller_controls():
-    var motion = Vector2()
-    aim = Vector2()       
-
-    motion = Vector2(Input.get_joy_axis(0, JOY_AXIS_0), Input.get_joy_axis(0, JOY_AXIS_1))
-#    print(motion.length())
-    
-    # Deadzone
-    if motion.length() < 0.25:
-        motion = Vector2()
-        
-    motion = motion * MOTION_SPEED
-    
+func _controller_controls(): 
     aim = Vector2(Input.get_joy_axis(0, JOY_AXIS_2), Input.get_joy_axis(0, JOY_AXIS_3))
     
     # Deadzone
@@ -89,8 +74,6 @@ func _controller_controls():
         tracer.visible = true
     else:
         tracer.visible = false
-    
-    move_and_slide(motion)
     
     
 func _process(delta):
