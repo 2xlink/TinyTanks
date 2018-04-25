@@ -1,15 +1,11 @@
 extends Node2D
 
-var s1
 var player_scene = load("res://scenes/player.tscn")
 var enemy_scene = load("res://scenes/enemy.tscn")
 
 var bullet_scene = preload("res://scenes/bullet.tscn")
 
 func _ready():
-    s1 = Sprite.new()
-    add_child(s1)
-    
     # Add players
     var player1 = player_scene.instance()
     add_child(player1)
