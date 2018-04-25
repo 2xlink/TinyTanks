@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 8.04893, 8.05684 )
 
-[node name="enemy" type="KinematicBody2D"]
+[node name="enemy" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -23,5 +23,14 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
 shape = SubResource( 1 )
+
+[node name="MovementDirectionTimer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+
+[connection signal="timeout" from="MovementDirectionTimer" to="." method="_on_MovementDirectionTimer_timeout"]
 
 

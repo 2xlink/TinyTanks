@@ -38,17 +38,17 @@ scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="cd_bullet_refresh" type="Timer" parent="." index="3"]
+[node name="BulletAmmoRefreshCooldown" type="Timer" parent="." index="3"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="cd_bullet_shoot" type="Timer" parent="." index="4"]
+[node name="BulletShootCooldown" type="Timer" parent="." index="4"]
 
 process_mode = 1
-wait_time = 0.5
+wait_time = 0.25
 one_shot = true
 autostart = false
 
@@ -74,6 +74,6 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Margin" ]
 
-[connection signal="timeout" from="cd_bullet_refresh" to="." method="_on_cd_bullet_refresh_timeout"]
+[connection signal="timeout" from="BulletAmmoRefreshCooldown" to="." method="_on_cd_bullet_refresh_timeout"]
 
 

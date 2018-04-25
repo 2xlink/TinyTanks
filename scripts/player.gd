@@ -3,8 +3,8 @@ signal hit
 signal fire_bullet
 
 onready var tracer = $tracer
-onready var cd_bullet_refresh = $cd_bullet_refresh
-onready var cd_bullet_shoot = $cd_bullet_shoot
+onready var cd_bullet_refresh = $BulletAmmoRefreshCooldown
+onready var cd_bullet_shoot = $BulletShootCooldown
 
 # Member variables
 const MOTION_SPEED = 160 # Pixels/second

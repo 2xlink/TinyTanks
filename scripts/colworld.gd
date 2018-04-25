@@ -6,6 +6,8 @@ var enemy_scene = load("res://scenes/enemy.tscn")
 var bullet_scene = preload("res://scenes/bullet.tscn")
 
 func _ready():
+    randomize()
+    
     # Add players
     var player1 = player_scene.instance()
     add_child(player1)
